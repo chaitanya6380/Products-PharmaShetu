@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaSethu – Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* Top header bar - dark blue */
+    .top-bar {
+      background: #0060AA;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.8125rem;
+      color: #fff;
+    }
+    .top-bar a {
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .top-bar svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Main nav - white */
+    .main-nav {
+      background: #fff;
+      padding: 1rem 2.5rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .logo-arc {
+      width: 72px;
+      height: 14px;
+      margin-bottom: 2px;
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+      position: relative;
+      display: inline-block;
+    }
+    .logo-text .tm { font-size: 0.6em; vertical-align: super; color: #666; }
+    .tagline {
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 2px;
+      font-style: italic;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #333;
+    }
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #0060AA; }
+
+    /* (Banner styles moved to .section-banner below) */
+
+    /* Product grid section */
+    .content {
+      padding: 40px 60px 55px 60px;
+    }
+    .api-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 12px;
+    }
+
+    /* Pill cards - fully rounded capsule shape */
+    .api-pill {
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #1a1a1a;
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+    .api-pill.tinted {
+      background: #e0ecf5;
+      border-color: #c8d8e8;
+    }
+
+    /* Section banner - reusable (APIs, Intermediates, Pellets) */
+    .section-banner {
+      background: #0060AA;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      border-radius: 10px;
+      margin: 2.5rem 60px 0 60px;
+    }
+
+    /* Intermediates table */
+    .inter-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+    .inter-table thead th {
+      background: #0060AA;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      text-align: left;
+      border: 1px solid #005090;
+    }
+    .inter-table .group-row td {
+      background: #e0ecf5;
+      font-weight: 700;
+      font-size: 20px;
+      color: #0060AA;
+      padding: 0.65rem 1.25rem;
+      border: 1px solid #c8d8e8;
+    }
+    .inter-table tbody td {
+      padding: 0.6rem 1.25rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      border: 1px solid #e0e0e0;
+    }
+    .inter-table tbody tr:hover {
+      background: #f0f6fc;
+    }
+    .inter-table tbody tr.alt td {
+      background: #f9fbfd;
+    }
+
+    /* Download CTA button */
+    .cta-wrap {
+      text-align: center;
+      padding: 1.5rem 0 0 0;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #0060AA;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover {
+      background: #004d8a;
+    }
+    .cta-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Pellets - two tables side by side */
+    .split-tables {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .api-grid { grid-template-columns: 1fr 1fr; }
+      .split-tables { grid-template-columns: 1fr; }
+      .content { padding: 30px 20px; }
+      .section-banner { margin-left: 1rem; margin-right: 1rem; }
+    }
+    @media (max-width: 500px) {
+      .api-grid { grid-template-columns: 1fr; }
+      .section-banner { margin-left: 0.5rem; margin-right: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top header bar -->
+  <div class="top-bar">
+    <a href="tel:+918374989000">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      +91 83749 89000
+    </a>
+    <a href="mailto:business@pharmasethu.com">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      business@pharmasethu.com
+    </a>
+  </div>
+
+  <!-- Main navigation -->
+  <header class="main-nav">
+    <div class="logo-wrap">
+      <svg class="logo-arc" viewBox="0 0 72 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 12C20 2 52 2 70 12" stroke="#0060AA" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">PharmaSethu<span class="tm">™</span></span>
+      <span class="tagline">supporting strong partnerships</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#who-we-are">Who We Are</a>
+      <a href="#what-we-do">What We Do</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- APIs banner -->
+  <div class="section-banner">APIs</div>
+
+  <!-- Product list - 3 columns, flowing down columns -->
+  <div class="content">
+    <div class="api-grid" id="apiGrid"></div>
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn" download>
+        Download Product List
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Intermediates banner -->
+  <div class="section-banner">API Intermediates</div>
+
+  <!-- Intermediates table - grouped by parent drug -->
+  <div class="content">
+    <table class="inter-table" id="interTable">
+      <thead>
+        <tr>
+          <th style="width: 75%;">Intermediate Name</th>
+          <th style="width: 25%;">CAS No.</th>
+        </tr>
+      </thead>
+      <tbody id="interBody"></tbody>
+    </table>
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn" download>
+        Download Product List
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Pellets banner -->
+  <div class="section-banner">Pellets</div>
+
+  <!-- Pellets - two tables side by side -->
+  <div class="content">
+    <div class="split-tables">
+      <table class="inter-table" id="pelletTableLeft">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody id="pelletBodyLeft"></tbody>
+      </table>
+      <table class="inter-table" id="pelletTableRight">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody id="pelletBodyRight"></tbody>
+      </table>
+    </div>
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn" download>
+        Download Product List
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    var products = [
+      "Acebrophylline", "Aceclofenac", "Albendazole", "Allopurinol", "Ambroxol HCL", "Amlodipine Besylate",
+      "Amodiaquine HCL", "Aprepitant", "Artemether", "Atenolol", "Atorvastatin Calcium", "Bisoprolol Fumarate",
+      "Bromhexine Hcl", "Cefixime Trihydrate", "Cetirizine Hcl", "Chloroquine Phosphate", "Chlorpheniramine Maleate",
+      "Cimetidine", "Dapoxetine", "Dapsone", "Dextromethorphan HBR", "Diclofenac Potassium", "Diclofenac Sodium",
+      "Diphenhydramine", "Domperidone", "Domperidone Maleate", "Doxofylline", "Erythromycin", "Esomeprazole Magnesium Trihydrate",
+      "Famotidine", "Fluconazole", "Flumequine", "Fosaprepitant Dimeglumine", "Fosphenytoin Sodium", "Furosemide",
+      "Gabapentin", "Gliclazide", "Guaifenesin", "Hydrochlorothiazide", "Hydroxychloroquine Sulphate", "Hydroxyzine Hcl",
+      "Ibuprofen", "Irbesartan", "Itraconazole", "Ketoconazole", "Ketoprofen", "Ketorolac Tromethamine",
+      "Levocetirizine", "Lidocaine Base/HCL", "Loperamide Hcl", "Loratadine", "Losartan Potassium", "Lumefantrine",
+      "Metformin Hcl", "Metoclopramide", "Minoxidil", "Mirtazapine", "Naproxen", "Nicardipine HCl",
+      "Nimesulide", "Olmesartan", "Omeprazole", "Pantoprazole", "Paracetamol", "Phenylephrine Hcl",
+      "Piperaquine Phosphate", "Povidone Iodine", "Pregabalin", "Primaquine Phosphate", "Pyrimethamine", "Ranitidine Hcl",
+      "Ropivacaine Hcl", "Rosuvastatin Calcium", "Salbutamol Sulphate", "Sibutramine", "Sildenafil Citrate", "Silver Sulfadiazine",
+      "Sulfadoxine", "Sulfamethoxazole", "Tadalafil", "Telmisartan", "Tiagabine HCL", "Torsemide",
+      "Trazodone HCL", "Trimethoprim", "Valsartan", "Vardenafil HCL"
+    ];
+
+    // Split products into 3 equal columns (flow down, then next column)
+    var cols = 3;
+    var perCol = Math.ceil(products.length / cols);
+    var col1 = products.slice(0, perCol);
+    var col2 = products.slice(perCol, perCol * 2);
+    var col3 = products.slice(perCol * 2);
+
+    // Find the max rows
+    var maxRows = Math.max(col1.length, col2.length, col3.length);
+
+    var grid = document.getElementById('apiGrid');
+
+    // Render row by row so that same-row items share the same tint
+    for (var r = 0; r < maxRows; r++) {
+      var items = [col1[r], col2[r], col3[r]];
+      var tinted = (r % 2 === 0); // alternate rows: tinted / white
+
+      for (var c = 0; c < 3; c++) {
+        var pill = document.createElement('div');
+        if (items[c]) {
+          pill.className = 'api-pill' + (tinted ? ' tinted' : '');
+          pill.textContent = items[c];
+        } else {
+          pill.style.visibility = 'hidden';
+          pill.className = 'api-pill';
+        }
+        grid.appendChild(pill);
+      }
+    }
+
+    // ---- Intermediates Section ----
+    var intermediates = [
+      {
+        group: "Ranitidine HCl Intermediates",
+        items: [
+          { name: "2-[[[5-(Dimethylamino) methyl-1,2-furanyl] methyl] thio] ethanamine", cas: "66356-53-4" },
+          { name: "2-((5-((Dimethylamino)methyl)furan-2-yl)methylthio)ethanamine", cas: "66356-53-4" },
+          { name: "N-Methyl-1-(methylthio)-2-nitroethenamine", cas: "61832-41-5" },
+          { name: "N-[2-[[[5-(Dimethylamino) methyl] furan-2-yl] methyl] thio] ethyl]-N-methyl-2-nitroethene-1,1-diamine", cas: "66357-35-5" }
+        ]
+      },
+      {
+        group: "Famotidine Intermediates",
+        items: [
+          { name: "2-[4-(Chloromethyl) thiazol-2-yl] guanidine hydrochloride", cas: "69014-12-6" },
+          { name: "N-[4-[[(Amino iminomethyl) thio]-methyl]-2-thiazolyl]-guanidine dihydrochloride", cas: "88046-01-9" },
+          { name: "Sulfuric diamide", cas: "7803-58-9" },
+          { name: "N-Sulfamyl-3-chloro propionamidine HCl", cas: "106649-95-0" },
+          { name: "Aminoiminoethyl thiourea", cas: "2114-02-05" }
+        ]
+      },
+      {
+        group: "Mirtazapine Intermediates",
+        items: [
+          { name: "Isopropyl 2-chloronicotinate", cas: "NA" },
+          { name: "(2-(4-Methyl-2-phenylpiperazin-1-yl)pyridin-3-yl)methanol", cas: "61337-89-1" },
+          { name: "1-Methyl-3-phenylpiperazine", cas: "5271-27-2" }
+        ]
+      },
+      {
+        group: "Rizatriptan Intermediates",
+        items: [
+          { name: "1-(4-Nitrophenyl)methyl-1,2,4-triazole", cas: "119192-09-5" },
+          { name: "4-(1H-1,2,4-Triazol-1-ylmethyl)aniline", cas: "119192-10-8" }
+        ]
+      },
+      {
+        group: "Eletriptan HBr Intermediates",
+        items: [
+          { name: "(3-[(R)-1-(Benzyloxy) carbonyl pyrrolidine-2-carbonyl)-5-bromoindole", cas: "143322-56-9" },
+          { name: "5-Bromo-3-(((R)-1-methylpyrrolidin-2-yl) methyl)-1H-indole", cas: "143322-57-0" },
+          { name: "Phenyl vinyl sulfone", cas: "5535-48-8" }
+        ]
+      }
+    ];
+
+    var tbody = document.getElementById('interBody');
+
+    intermediates.forEach(function (group) {
+      // Group header row
+      var groupRow = document.createElement('tr');
+      groupRow.className = 'group-row';
+      groupRow.innerHTML = '<td colspan="2">' + group.group + '</td>';
+      tbody.appendChild(groupRow);
+
+      // Item rows
+      group.items.forEach(function (item, i) {
+        var tr = document.createElement('tr');
+        if (i % 2 === 1) tr.className = 'alt';
+        tr.innerHTML = '<td>' + item.name + '</td><td>' + item.cas + '</td>';
+        tbody.appendChild(tr);
+      });
+    });
+
+    // ---- Pellets Section ----
+    var pellets = [
+      { product: "Atorvastatin Pellets", percentage: "10%, 15%, 20%" },
+      { product: "Ascorbic Acid Pellets", percentage: "70%" },
+      { product: "Aspirin Pellets", percentage: "60%" },
+      { product: "Carbonyl Iron Pellets", percentage: "35%, 50%, 70%" },
+      { product: "Chloroquine Phosphate 250mg Pellets", percentage: "25%" },
+      { product: "Chlorpheniramine Maleate Pellets", percentage: "2%, 5%" },
+      { product: "Diclofenac Sodium Pellets (SR)", percentage: "40%" },
+      { product: "Domperidone Pellets", percentage: "10%, 17%, 20%, 22%, 22.5%, 25%, 30%, 35%, 40%" },
+      { product: "Duloxetine Hcl Pellets", percentage: "17%" },
+      { product: "Esomeprazole + Domperidone (SR)", percentage: "20 mg + 30 mg" },
+      { product: "Esomeprazole + Domperidone (SR)", percentage: "40 mg + 30 mg" },
+      { product: "Esomeprazole + Itopride Hcl (SR)", percentage: "40 mg + 150 mg" },
+      { product: "Esomeprazole + Levosulpiride (SR)", percentage: "40 mg + 75 mg" },
+      { product: "Esomeprazole Pellets", percentage: "7.5%, 8.5%, 15%, 22.5%, 25%" },
+      { product: "Folic Acid Pellets", percentage: "1%, 3%, 5%" },
+      { product: "Indomethacin Pellets (SR)", percentage: "30%" },
+      { product: "Itopride HCL Pellets (SR)", percentage: "50%, 75%" },
+      { product: "Itraconazole Pellets", percentage: "20%, 22%, 40%, 44%" },
+      { product: "Lansoprazole Pellets", percentage: "8.5%, 11%, 15%" },
+      { product: "Levosulpiride SR Pellets", percentage: "35%, 50%, 55%, 65%, 70%" },
+      { product: "Mebeverine Hcl Pellets SR", percentage: "50%, 60%, 80%" },
+      { product: "Omeprazole + Domperidone (IR)", percentage: "20 mg + 10 mg" },
+      { product: "Omeprazole + Domperidone (SR)", percentage: "20 mg + 30 mg" },
+      { product: "Omeprazole Pellets", percentage: "7.5%, 8.5%, 10%, 11.2%, 12.5%, 15%, 22.5%" },
+      { product: "Pantoprazole + Cinitapride (SR)", percentage: "40 mg + 3 mg" },
+      { product: "Pantoprazole + Levosulpiride (SR)", percentage: "40 mg + 75 mg" },
+      { product: "Pantoprazole Pellets", percentage: "10%, 15%, 22%, 22.5%, 25%, 30%" },
+      { product: "Pantoprazole + Domperidone (IR)", percentage: "20 mg + 10 mg" },
+      { product: "Pantoprazole + Domperidone (SR & IR)", percentage: "40 mg + 20 mg + 10 mg" },
+      { product: "Pantoprazole + Domperidone (SR)", percentage: "40 mg + 30 mg" },
+      { product: "Pantoprazole + Itopride Hcl (SR)", percentage: "40 mg + 150 mg" },
+      { product: "Phenylephrine Hcl Pellets", percentage: "3%, 10%" },
+      { product: "Propranolol Hcl Pellets", percentage: "40 mg" },
+      { product: "Pyridoxine Hydrochloride (B6) Pellets", percentage: "1.5%, 5%" },
+      { product: "Rabeprazole Pellets", percentage: "7.5%, 8.5%, 11%, 15%, 20%" },
+      { product: "Rabeprazole + Aceclofenac (SR)", percentage: "20 mg + 200 mg" },
+      { product: "Rabeprazole + Diclofenac (SR)", percentage: "20 mg + 100 mg" },
+      { product: "Rabeprazole + Domperidone (SR & IR)", percentage: "20 mg + 20 mg + 10 mg" },
+      { product: "Rabeprazole + Domperidone (SR)", percentage: "20 mg + 30 mg" },
+      { product: "Rabeprazole + Itopride Hcl (SR)", percentage: "20 mg + 150 mg" },
+      { product: "Rabeprazole + Levosulpiride (SR)", percentage: "20 mg + 75 mg" },
+      { product: "Rosuvastatin Pellets", percentage: "10%, 15%, 20%" },
+      { product: "Selenium Pellets", percentage: "1%" },
+      { product: "Tamsulosine Hydrochloride + Dutasteride", percentage: "0.4 mg + 0.5 mg" },
+      { product: "Tamsulosin Hcl Pellets", percentage: "0.2%, 0.4%, 0.16%" },
+      { product: "Vitamin B12 Pellets", percentage: "0.20%" },
+      { product: "Zinc Sulphate Monohydrate", percentage: "35%, 50%, 70%" }
+    ];
+
+    // Split pellets into two halves
+    var halfIdx = Math.ceil(pellets.length / 2);
+    var leftHalf = pellets.slice(0, halfIdx);
+    var rightHalf = pellets.slice(halfIdx);
+
+    var pelletBodyLeft = document.getElementById('pelletBodyLeft');
+    var pelletBodyRight = document.getElementById('pelletBodyRight');
+
+    leftHalf.forEach(function (item, i) {
+      var tr = document.createElement('tr');
+      if (i % 2 === 1) tr.className = 'alt';
+      tr.innerHTML = '<td>' + item.product + '</td><td>' + item.percentage + '</td>';
+      pelletBodyLeft.appendChild(tr);
+    });
+
+    rightHalf.forEach(function (item, i) {
+      var tr = document.createElement('tr');
+      if (i % 2 === 1) tr.className = 'alt';
+      tr.innerHTML = '<td>' + item.product + '</td><td>' + item.percentage + '</td>';
+      pelletBodyRight.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
