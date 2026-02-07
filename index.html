@@ -17,63 +17,6 @@
       line-height: 1.5;
     }
 
-    /* Top header bar - dark blue */
-    .top-bar {
-      background: #0060AA;
-      padding: 0.5rem 2rem;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 1.5rem;
-      font-size: 0.8125rem;
-      color: #fff;
-    }
-    .top-bar a {
-      color: #fff;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .top-bar svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    /* Main nav - white */
-    .main-nav {
-      background: #fff;
-      padding: 1rem 2.5rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-    }
-    .logo-wrap img {
-      height: 70px;
-      width: auto;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      font-size: 0.9375rem;
-      font-weight: 500;
-      color: #333;
-    }
-    .nav-links a {
-      color: #333;
-      text-decoration: none;
-    }
-    .nav-links a:hover { color: #0060AA; }
-
-    /* (Banner styles moved to .section-banner below) */
-
     /* Product grid section */
     .content {
       padding: 40px 60px 55px 60px;
@@ -81,8 +24,8 @@
     .api-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      column-gap: 20px;
-      row-gap: 12px;
+      column-gap: 28px;
+      row-gap: 20px;
     }
 
     /* Pill cards - fully rounded capsule shape */
@@ -90,7 +33,7 @@
       padding: 0.6rem 1.25rem;
       border-radius: 10px;
       font-family: 'Inter', sans-serif;
-      font-size: 20px;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
       font-weight: 400;
       color: #1a1a1a;
       background: #fff;
@@ -108,7 +51,7 @@
       text-align: center;
       padding: 1rem 1.5rem;
       font-family: 'Poppins', sans-serif;
-      font-size: 38px;
+      font-size: clamp(24px, 4vw + 16px, 38px);
       font-weight: 400;
       letter-spacing: 0.04em;
       border-radius: 10px;
@@ -128,7 +71,7 @@
       background: #0060AA;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 20px;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
       font-weight: 600;
       padding: 0.75rem 1.25rem;
       text-align: left;
@@ -137,7 +80,7 @@
     .inter-table .group-row td {
       background: #e0ecf5;
       font-weight: 700;
-      font-size: 20px;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
       color: #0060AA;
       padding: 0.65rem 1.25rem;
       border: 1px solid #c8d8e8;
@@ -145,7 +88,7 @@
     .inter-table tbody td {
       padding: 0.6rem 1.25rem;
       font-family: 'Inter', sans-serif;
-      font-size: 20px;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
       color: #1a1a1a;
       border: 1px solid #e0e0e0;
     }
@@ -159,7 +102,7 @@
     /* Download CTA button */
     .cta-wrap {
       text-align: center;
-      padding: 1.5rem 0 0 0;
+      padding: 2.5rem 0 0 0;
     }
     .cta-btn {
       display: inline-flex;
@@ -168,7 +111,7 @@
       background: #0060AA;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 20px;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
       font-weight: 600;
       padding: 0.75rem 1.75rem;
       border: none;
@@ -181,56 +124,90 @@
       background: #004d8a;
     }
     .cta-btn svg {
-      width: 20px;
-      height: 20px;
+      width: clamp(16px, 1.2vw + 10px, 20px);
+      height: clamp(16px, 1.2vw + 10px, 20px);
       flex-shrink: 0;
     }
 
-    /* Pellets - two tables side by side */
-    .split-tables {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    /* Pellets - single 4-column table for perfect row alignment */
+    .pellet-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ddd;
     }
+    .pellet-table thead th {
+      background: #0060AA;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      text-align: left;
+      border: 1px solid #005090;
+    }
+    .pellet-table tbody td {
+      padding: 0.6rem 1.25rem;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      color: #1a1a1a;
+      border: 1px solid #e0e0e0;
+      vertical-align: top;
+    }
+    .pellet-table tbody tr:hover {
+      background: #f0f6fc;
+    }
+    .pellet-table tbody tr.alt td {
+      background: #f9fbfd;
+    }
+    .pellet-table .divider {
+      width: 28px;
+      background: #f5f5f5;
+      border: none;
+      padding: 0;
+    }
+    .pellet-table thead .divider {
+      background: #f5f5f5;
+      border: none;
+    }
+    /* Show/hide desktop vs mobile pellet table */
+    .pellet-mobile { display: none; }
+    .pellet-desktop { display: table; }
 
+    @media (max-width: 1024px) {
+      .pellet-table thead th,
+      .pellet-table tbody td { font-size: 16px; padding: 0.5rem 0.75rem; }
+    }
     @media (max-width: 768px) {
       .api-grid { grid-template-columns: 1fr 1fr; }
-      .split-tables { grid-template-columns: 1fr; }
       .content { padding: 30px 20px; }
       .section-banner { margin-left: 1rem; margin-right: 1rem; }
+      .inter-table thead th,
+      .inter-table tbody td,
+      .inter-table .group-row td { font-size: 16px; }
+      .api-pill { font-size: 16px; }
+      .cta-btn { font-size: 16px; }
+      /* Swap to single 2-column table on mobile */
+      .pellet-desktop { display: none; }
+      .pellet-mobile { display: table; }
     }
     @media (max-width: 500px) {
       .api-grid { grid-template-columns: 1fr; }
+      .content { padding: 20px 16px; }
       .section-banner { margin-left: 0.5rem; margin-right: 0.5rem; }
+      .section-banner { font-size: 24px; }
+      .inter-table thead th,
+      .inter-table tbody td,
+      .inter-table .group-row td { font-size: 14px; padding: 0.5rem 0.75rem; }
+      .api-pill { font-size: 14px; padding: 0.5rem 1rem; }
+      .cta-btn { font-size: 14px; padding: 0.6rem 1.25rem; }
+      .cta-btn svg { width: 16px; height: 16px; }
     }
   </style>
 </head>
 <body>
-  <!-- Top header bar -->
-  <div class="top-bar">
-    <a href="tel:+918374989000">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      +91 83749 89000
-    </a>
-    <a href="mailto:business@pharmasethu.com">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      business@pharmasethu.com
-    </a>
-  </div>
-
-  <!-- Main navigation -->
-  <header class="main-nav">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="PharmaSethu - supporting strong partnerships">
-    </div>
-    <nav class="nav-links">
-      <a href="#who-we-are">Who We Are</a>
-      <a href="#what-we-do">What We Do</a>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
   <!-- APIs banner -->
   <div class="section-banner">APIs</div>
 
@@ -270,28 +247,31 @@
   <!-- Pellets banner -->
   <div class="section-banner">Pellets</div>
 
-  <!-- Pellets - two tables side by side -->
+  <!-- Pellets - 4-column table for desktop, 2-column for mobile -->
   <div class="content">
-    <div class="split-tables">
-      <table class="inter-table" id="pelletTableLeft">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Percentage</th>
-          </tr>
-        </thead>
-        <tbody id="pelletBodyLeft"></tbody>
-      </table>
-      <table class="inter-table" id="pelletTableRight">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Percentage</th>
-          </tr>
-        </thead>
-        <tbody id="pelletBodyRight"></tbody>
-      </table>
-    </div>
+    <!-- Desktop: 4-column table -->
+    <table class="pellet-table pellet-desktop" id="pelletTable">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Percentage</th>
+          <th class="divider"></th>
+          <th>Product</th>
+          <th>Percentage</th>
+        </tr>
+      </thead>
+      <tbody id="pelletBody"></tbody>
+    </table>
+    <!-- Mobile: simple 2-column table -->
+    <table class="inter-table pellet-mobile" id="pelletTableMobile">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Percentage</th>
+        </tr>
+      </thead>
+      <tbody id="pelletBodyMobile"></tbody>
+    </table>
     <div class="cta-wrap">
       <a href="#" class="cta-btn" download>
         Download Product List
@@ -300,8 +280,10 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
   <script>
-    var products = [
+    var FALLBACK_PRODUCTS = [
       "Acebrophylline", "Aceclofenac", "Albendazole", "Allopurinol", "Ambroxol HCL", "Amlodipine Besylate",
       "Amodiaquine HCL", "Aprepitant", "Artemether", "Atenolol", "Atorvastatin Calcium", "Bisoprolol Fumarate",
       "Bromhexine Hcl", "Cefixime Trihydrate", "Cetirizine Hcl", "Chloroquine Phosphate", "Chlorpheniramine Maleate",
@@ -319,6 +301,8 @@
       "Trazodone HCL", "Trimethoprim", "Valsartan", "Vardenafil HCL"
     ];
 
+    function renderAll(products, intermediates, pellets) {
+    document.getElementById('apiGrid').innerHTML = '';
     // Split products into 3 equal columns (flow down, then next column)
     var cols = 3;
     var perCol = Math.ceil(products.length / cols);
@@ -350,7 +334,7 @@
     }
 
     // ---- Intermediates Section ----
-    var intermediates = [
+    intermediates = intermediates || [
       {
         group: "Ranitidine HCl Intermediates",
         items: [
@@ -396,6 +380,7 @@
     ];
 
     var tbody = document.getElementById('interBody');
+    tbody.innerHTML = '';
 
     intermediates.forEach(function (group) {
       // Group header row
@@ -414,7 +399,7 @@
     });
 
     // ---- Pellets Section ----
-    var pellets = [
+    pellets = pellets || [
       { product: "Atorvastatin Pellets", percentage: "10%, 15%, 20%" },
       { product: "Ascorbic Acid Pellets", percentage: "70%" },
       { product: "Aspirin Pellets", percentage: "60%" },
@@ -464,27 +449,90 @@
       { product: "Zinc Sulphate Monohydrate", percentage: "35%, 50%, 70%" }
     ];
 
-    // Split pellets into two halves
+    // Split pellets into two halves, render as single table with 4 data columns + 1 divider
     var halfIdx = Math.ceil(pellets.length / 2);
     var leftHalf = pellets.slice(0, halfIdx);
     var rightHalf = pellets.slice(halfIdx);
+    var maxRows = Math.max(leftHalf.length, rightHalf.length);
 
-    var pelletBodyLeft = document.getElementById('pelletBodyLeft');
-    var pelletBodyRight = document.getElementById('pelletBodyRight');
+    var pelletBody = document.getElementById('pelletBody');
+    pelletBody.innerHTML = '';
 
-    leftHalf.forEach(function (item, i) {
+    for (var i = 0; i < maxRows; i++) {
+      var tr = document.createElement('tr');
+      if (i % 2 === 1) tr.className = 'alt';
+
+      var left = leftHalf[i];
+      var right = rightHalf[i];
+
+      tr.innerHTML =
+        '<td>' + (left ? left.product : '') + '</td>' +
+        '<td>' + (left ? left.percentage : '') + '</td>' +
+        '<td class="divider"></td>' +
+        '<td>' + (right ? right.product : '') + '</td>' +
+        '<td>' + (right ? right.percentage : '') + '</td>';
+
+      pelletBody.appendChild(tr);
+    }
+
+    // Mobile: render all pellets in a single 2-column table
+    var pelletBodyMobile = document.getElementById('pelletBodyMobile');
+    pelletBodyMobile.innerHTML = '';
+    pellets.forEach(function (item, i) {
       var tr = document.createElement('tr');
       if (i % 2 === 1) tr.className = 'alt';
       tr.innerHTML = '<td>' + item.product + '</td><td>' + item.percentage + '</td>';
-      pelletBodyLeft.appendChild(tr);
+      pelletBodyMobile.appendChild(tr);
     });
+    }
 
-    rightHalf.forEach(function (item, i) {
-      var tr = document.createElement('tr');
-      if (i % 2 === 1) tr.className = 'alt';
-      tr.innerHTML = '<td>' + item.product + '</td><td>' + item.percentage + '</td>';
-      pelletBodyRight.appendChild(tr);
-    });
+    // Load from Supabase or use fallback
+    (function() {
+      var cfg = window.SUPABASE_CONFIG;
+      if (cfg && cfg.url && cfg.url !== 'YOUR_SUPABASE_URL') {
+        var supabase = window.supabase.createClient(cfg.url, cfg.anonKey);
+        Promise.all([
+          supabase.from('apis').select('name').order('sort_order'),
+          supabase.from('intermediate_groups').select('*').order('sort_order'),
+          supabase.from('pellets').select('*').order('sort_order')
+        ]).then(function(results) {
+          var apisData = results[0].data;
+          var grpsData = results[1].data || [];
+          var pelletsData = results[2].data || [];
+
+          var products = (apisData || []).map(function(r) { return r.name; });
+          if (products.length === 0) products = FALLBACK_PRODUCTS;
+
+          var pellets = pelletsData.map(function(r) { return { product: r.product, percentage: r.percentage }; });
+
+          if (grpsData.length === 0) {
+            renderAll(products, undefined, pellets.length ? pellets : undefined);
+            return;
+          }
+          var intermediates = [];
+          var idx = 0;
+          function loadNextGroup() {
+            if (idx >= grpsData.length) {
+              renderAll(products, intermediates, pellets.length ? pellets : undefined);
+              return;
+            }
+            var g = grpsData[idx++];
+            supabase.from('intermediate_items').select('*').eq('group_id', g.id).order('sort_order').then(function(r) {
+              intermediates.push({
+                group: g.group_name,
+                items: (r.data || []).map(function(i) { return { name: i.name, cas: i.cas || '' }; })
+              });
+              loadNextGroup();
+            });
+          }
+          loadNextGroup();
+        }).catch(function() {
+          renderAll(FALLBACK_PRODUCTS, undefined, undefined);
+        });
+      } else {
+        renderAll(FALLBACK_PRODUCTS, undefined, undefined);
+      }
+    })();
   </script>
 </body>
 </html>
