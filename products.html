@@ -36,7 +36,7 @@
       padding: 0.6rem 1.25rem;
       border-radius: 10px;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       font-weight: 400;
       color: #1a1a1a;
       background: #fff;
@@ -60,6 +60,33 @@
       border-radius: 10px;
       margin: 2.5rem 60px 0 60px;
     }
+    .section-banner-apis,
+    .section-banner-inter,
+    .section-banner-pellets {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .section-banner-apis-icon,
+    .section-banner-inter-icon,
+    .section-banner-pellets-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+    }
+    .section-banner-apis-icon img,
+    .section-banner-inter-icon img,
+    .section-banner-pellets-icon img {
+      max-width: 80%;
+      max-height: 80%;
+      display: block;
+    }
 
     /* Intermediates table */
     .inter-table {
@@ -74,7 +101,7 @@
       background: #0060AA;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       font-weight: 600;
       padding: 0.75rem 1.25rem;
       text-align: left;
@@ -83,7 +110,7 @@
     .inter-table .group-row td {
       background: #e0ecf5;
       font-weight: 700;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       color: #0060AA;
       padding: 0.65rem 1.25rem;
       border: 1px solid #c8d8e8;
@@ -91,7 +118,7 @@
     .inter-table tbody td {
       padding: 0.6rem 1.25rem;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       color: #1a1a1a;
       border: 1px solid #e0e0e0;
     }
@@ -114,7 +141,7 @@
       background: #0060AA;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       font-weight: 600;
       padding: 0.75rem 1.75rem;
       border: none;
@@ -145,7 +172,7 @@
       background: #0060AA;
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       font-weight: 600;
       padding: 0.75rem 1.25rem;
       text-align: left;
@@ -154,16 +181,16 @@
     .pellet-table tbody td {
       padding: 0.6rem 1.25rem;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(14px, 1.2vw + 12px, 20px);
+      font-size: 16px;
       color: #1a1a1a;
       border: 1px solid #e0e0e0;
       vertical-align: top;
     }
     .pellet-table tbody tr:hover {
-      background: #f0f6fc;
+      background: #ffffff; /* keep all rows white on hover */
     }
     .pellet-table tbody tr.alt td {
-      background: #f9fbfd;
+      background: #ffffff; /* no alternate row color for pellets */
     }
     .pellet-table .divider {
       width: 28px;
@@ -228,13 +255,18 @@
 </head>
 <body>
   <!-- APIs banner -->
-  <div class="section-banner">APIs</div>
+  <div class="section-banner section-banner-apis">
+    <span class="section-banner-apis-icon">
+      <img src="Public/1.png" alt="API Icon">
+    </span>
+    APIs
+  </div>
 
   <!-- Product list - 3 columns, flowing down columns -->
   <div class="content">
     <div class="api-grid" id="apiGrid"></div>
     <div class="cta-wrap">
-      <a href="#" class="cta-btn" download>
+      <a href="coming-soon.html" class="cta-btn">
         Download Product List
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
@@ -242,7 +274,12 @@
   </div>
 
   <!-- Intermediates banner -->
-  <div class="section-banner">API Intermediates</div>
+  <div class="section-banner section-banner-inter">
+    <span class="section-banner-inter-icon">
+      <img src="Public/2.png" alt="Intermediates Icon">
+    </span>
+    API Intermediates
+  </div>
 
   <!-- Intermediates table - grouped by parent drug -->
   <div class="content">
@@ -256,7 +293,7 @@
       <tbody id="interBody"></tbody>
     </table>
     <div class="cta-wrap">
-      <a href="#" class="cta-btn" download>
+      <a href="coming-soon.html" class="cta-btn">
         Download Product List
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
@@ -264,7 +301,12 @@
   </div>
 
   <!-- Pellets banner -->
-  <div class="section-banner">Pellets</div>
+  <div class="section-banner section-banner-pellets">
+    <span class="section-banner-pellets-icon">
+      <img src="Public/3.png" alt="Pellets Icon">
+    </span>
+    Pellets
+  </div>
 
   <!-- Pellets -->
   <div class="content">
@@ -274,10 +316,10 @@
         <thead>
           <tr>
             <th>Product</th>
-            <th>Percentage</th>
+            <th>Strength</th>
             <th class="divider"></th>
             <th>Product</th>
-            <th>Percentage</th>
+            <th>Strength</th>
           </tr>
         </thead>
         <tbody id="pelletBody"></tbody>
@@ -289,14 +331,14 @@
         <thead>
           <tr>
             <th>Product</th>
-            <th>Percentage</th>
+            <th>Strength</th>
           </tr>
         </thead>
         <tbody id="pelletBodyMobile"></tbody>
       </table>
     </div>
     <div class="cta-wrap">
-      <a href="#" class="cta-btn" download>
+      <a href="coming-soon.html" class="cta-btn">
         Download Product List
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </a>
