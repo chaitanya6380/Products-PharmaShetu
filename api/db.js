@@ -8,10 +8,15 @@ if (!cached) {
 async function connectDB() {
   if (cached.conn) return cached.conn;
 
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is not set');
+  }
+
   if (!cached.promise) {
-    const uri = process.env.MONGODB_URI;
     cached.promise = mongoose.connect(uri, {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
     }).then((m) => m);
   }
 
