@@ -1,15 +1,23 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
-  "cleanUrls": true,
+  "functions": {
+    "api/*.js": {
+      "memory": 256,
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
-    { "source": "/products", "destination": "/products.html" }
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/admin", "destination": "/admin.html" }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PUT, DELETE, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
       ]
     }
   ]

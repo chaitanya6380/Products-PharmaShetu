@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaSethu – Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #f0f2f5; color: #1a1a1a; }
+
+    /* Login */
+    .login-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: linear-gradient(135deg, #0060AA 0%, #004080 100%);
+    }
+    .login-card {
+      background: #fff; border-radius: 12px; padding: 2.5rem 2rem; width: 380px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15); text-align: center;
+    }
+    .login-card h1 { margin: 0 0 0.5rem; font-size: 1.5rem; color: #0060AA; }
+    .login-card p { color: #666; font-size: 0.875rem; margin: 0 0 1.5rem; }
+    .login-card input {
+      width: 100%; padding: 0.75rem 1rem; font: inherit; font-size: 0.95rem;
+      border: 1px solid #ddd; border-radius: 8px; outline: none; margin-bottom: 1rem;
+    }
+    .login-card input:focus { border-color: #0060AA; }
+    .login-card button {
+      width: 100%; padding: 0.75rem; font: inherit; font-size: 1rem; font-weight: 600;
+      background: #0060AA; color: #fff; border: none; border-radius: 8px; cursor: pointer;
+    }
+    .login-card button:hover { background: #004d8a; }
+    .login-error { color: #e53935; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+
+    /* Dashboard */
+    .dashboard { display: none; }
+    .dash-header {
+      background: #0060AA; color: #fff; padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .dash-header h1 { font-size: 1.25rem; margin: 0; font-weight: 600; }
+    .dash-header .logout {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer;
+      font: inherit; font-size: 0.85rem;
+    }
+    .dash-header .logout:hover { background: rgba(255,255,255,0.25); }
+
+    /* Tabs */
+    .tabs {
+      display: flex; gap: 0; background: #fff; border-bottom: 2px solid #e0e0e0;
+      padding: 0 2rem;
+    }
+    .tab {
+      padding: 0.85rem 1.5rem; font: inherit; font-size: 0.95rem; font-weight: 500;
+      background: none; border: none; border-bottom: 3px solid transparent;
+      cursor: pointer; color: #666;
+    }
+    .tab.active { color: #0060AA; border-bottom-color: #0060AA; }
+    .tab:hover { color: #0060AA; }
+
+    /* Content */
+    .dash-content { padding: 1.5rem 2rem; max-width: 1200px; }
+    .section-panel { display: none; }
+    .section-panel.active { display: block; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .toolbar h2 { margin: 0; font-size: 1.1rem; color: #333; }
+    .add-btn {
+      background: #0060AA; color: #fff; border: none; border-radius: 8px;
+      padding: 0.6rem 1.25rem; font: inherit; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .add-btn:hover { background: #004d8a; }
+
+    /* Table */
+    .data-table {
+      width: 100%; border-collapse: collapse; background: #fff;
+      border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .data-table th {
+      background: #f8f9fa; text-align: left; padding: 0.7rem 1rem;
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em; color: #666; border-bottom: 1px solid #e0e0e0;
+    }
+    .data-table td {
+      padding: 0.65rem 1rem; font-size: 0.9rem; border-bottom: 1px solid #f0f0f0;
+    }
+    .data-table tr:hover { background: #f8fbff; }
+    .data-table .actions { white-space: nowrap; }
+    .btn-edit, .btn-delete {
+      padding: 0.35rem 0.75rem; font: inherit; font-size: 0.8rem; border-radius: 6px;
+      border: none; cursor: pointer; font-weight: 500;
+    }
+    .btn-edit { background: #e8f0fe; color: #0060AA; margin-right: 0.4rem; }
+    .btn-edit:hover { background: #d0e2fc; }
+    .btn-delete { background: #fde8e8; color: #c62828; }
+    .btn-delete:hover { background: #f8d0d0; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); z-index: 1000; align-items: center; justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: #fff; border-radius: 12px; padding: 2rem; width: 500px; max-width: 90vw;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .modal h3 { margin: 0 0 1.25rem; font-size: 1.1rem; color: #333; }
+    .modal label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem; }
+    .modal input, .modal select {
+      width: 100%; padding: 0.65rem 0.75rem; font: inherit; font-size: 0.9rem;
+      border: 1px solid #ddd; border-radius: 8px; outline: none; margin-bottom: 1rem;
+    }
+    .modal input:focus, .modal select:focus { border-color: #0060AA; }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+    .modal-actions button {
+      padding: 0.6rem 1.25rem; font: inherit; font-size: 0.9rem; font-weight: 600;
+      border-radius: 8px; border: none; cursor: pointer;
+    }
+    .btn-cancel { background: #f0f0f0; color: #333; }
+    .btn-cancel:hover { background: #e0e0e0; }
+    .btn-save { background: #0060AA; color: #fff; }
+    .btn-save:hover { background: #004d8a; }
+
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; background: #333; color: #fff;
+      padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 2000;
+      transform: translateY(100px); opacity: 0; transition: all 0.3s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: #c62828; }
+    .toast.success { background: #2e7d32; }
+
+    .empty-msg { text-align: center; padding: 2rem; color: #999; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h1>PharmaSethu</h1>
+    <p>Admin Dashboard</p>
+    <input type="password" id="loginPassword" placeholder="Enter admin password" autofocus>
+    <button onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginError">Invalid password. Try again.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <h1>PharmaSethu — Admin Dashboard</h1>
+    <button class="logout" onclick="doLogout()">Logout</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('apis', this)">APIs</button>
+    <button class="tab" onclick="switchTab('intermediates', this)">Intermediates</button>
+    <button class="tab" onclick="switchTab('pellets', this)">Pellets</button>
+  </div>
+
+  <div class="dash-content">
+    <!-- APIs Panel -->
+    <div class="section-panel active" id="panel-apis">
+      <div class="toolbar">
+        <h2>API Products</h2>
+        <button class="add-btn" onclick="openAddApi()">+ Add API</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th style="width:60px">#</th><th>Name</th><th style="width:150px">Actions</th></tr></thead>
+        <tbody id="apisBody"><tr><td colspan="3" class="empty-msg">Loading...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- Intermediates Panel -->
+    <div class="section-panel" id="panel-intermediates">
+      <div class="toolbar">
+        <h2>Intermediates</h2>
+        <button class="add-btn" onclick="openAddInter()">+ Add Intermediate</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th style="width:60px">#</th><th>Group</th><th>Name</th><th>CAS No.</th><th style="width:150px">Actions</th></tr></thead>
+        <tbody id="interBody"><tr><td colspan="5" class="empty-msg">Loading...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- Pellets Panel -->
+    <div class="section-panel" id="panel-pellets">
+      <div class="toolbar">
+        <h2>Pellets</h2>
+        <button class="add-btn" onclick="openAddPellet()">+ Add Pellet</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th style="width:60px">#</th><th>Product</th><th>Percentage</th><th style="width:150px">Actions</th></tr></thead>
+        <tbody id="pelletsBody"><tr><td colspan="4" class="empty-msg">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Add Item</h3>
+    <div id="modalFields"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" id="modalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+var API_BASE = '/api';
+var token = localStorage.getItem('ps_token') || '';
+
+// --- AUTH ---
+function doLogin() {
+  var pw = document.getElementById('loginPassword').value;
+  fetch(API_BASE + '/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pw })
+  })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+  .then(function(res) {
+    if (!res.ok) {
+      document.getElementById('loginError').style.display = 'block';
+      return;
+    }
+    token = res.data.token;
+    localStorage.setItem('ps_token', token);
+    showDashboard();
+  })
+  .catch(function() { showToast('Connection error', 'error'); });
+}
+
+function doLogout() {
+  token = '';
+  localStorage.removeItem('ps_token');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadApis();
+  loadInter();
+  loadPellets();
+}
+
+// Check token on load
+if (token) {
+  showDashboard();
+}
+
+// Enter key on login
+document.getElementById('loginPassword').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+
+// --- TABS ---
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.section-panel').forEach(function(p) { p.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// --- TOAST ---
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(function() { t.className = 'toast'; }, 3000);
+}
+
+// --- MODAL ---
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+function openModal(title, fields, onSave) {
+  document.getElementById('modalTitle').textContent = title;
+  var container = document.getElementById('modalFields');
+  container.innerHTML = '';
+  fields.forEach(function(f) {
+    var label = document.createElement('label');
+    label.textContent = f.label;
+    container.appendChild(label);
+    if (f.type === 'select') {
+      var sel = document.createElement('select');
+      sel.id = 'modal_' + f.key;
+      f.options.forEach(function(o) {
+        var opt = document.createElement('option');
+        opt.value = o; opt.textContent = o;
+        if (o === f.value) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      container.appendChild(sel);
+    } else {
+      var inp = document.createElement('input');
+      inp.type = 'text';
+      inp.id = 'modal_' + f.key;
+      inp.value = f.value || '';
+      inp.placeholder = f.placeholder || '';
+      container.appendChild(inp);
+    }
+  });
+  document.getElementById('modalSave').onclick = onSave;
+  document.getElementById('modal').classList.add('show');
+}
+
+function getModalVal(key) { return document.getElementById('modal_' + key).value.trim(); }
+
+// --- APIS ---
+var apisData = [];
+
+function loadApis() {
+  fetch(API_BASE + '/apis').then(function(r) { return r.json(); }).then(function(data) {
+    apisData = data;
+    renderApis();
+  });
+}
+
+function renderApis() {
+  var body = document.getElementById('apisBody');
+  if (!apisData.length) { body.innerHTML = '<tr><td colspan="3" class="empty-msg">No APIs found. Add one!</td></tr>'; return; }
+  body.innerHTML = '';
+  apisData.forEach(function(item, i) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + esc(item.name) + '</td>' +
+      '<td class="actions"><button class="btn-edit" onclick="editApi(\'' + item._id + '\')">Edit</button>' +
+      '<button class="btn-delete" onclick="deleteApi(\'' + item._id + '\', \'' + esc(item.name) + '\')">Delete</button></td>';
+    body.appendChild(tr);
+  });
+}
+
+function openAddApi() {
+  openModal('Add API Product', [
+    { key: 'name', label: 'Product Name', placeholder: 'e.g. Paracetamol' }
+  ], function() {
+    var name = getModalVal('name');
+    if (!name) return showToast('Name is required', 'error');
+    fetch(API_BASE + '/apis', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ name: name })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('API added', 'success'); loadApis();
+    });
+  });
+}
+
+function editApi(id) {
+  var item = apisData.find(function(a) { return a._id === id; });
+  openModal('Edit API Product', [
+    { key: 'name', label: 'Product Name', value: item.name }
+  ], function() {
+    var name = getModalVal('name');
+    if (!name) return showToast('Name is required', 'error');
+    fetch(API_BASE + '/apis', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: id, name: name })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('API updated', 'success'); loadApis();
+    });
+  });
+}
+
+function deleteApi(id, name) {
+  if (!confirm('Delete "' + name + '"?')) return;
+  fetch(API_BASE + '/apis', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify({ id: id })
+  }).then(function() { showToast('API deleted', 'success'); loadApis(); });
+}
+
+// --- INTERMEDIATES ---
+var interData = [];
+var interGroups = [];
+
+function loadInter() {
+  fetch(API_BASE + '/intermediates').then(function(r) { return r.json(); }).then(function(data) {
+    interData = data;
+    interGroups = data.map(function(g) { return g.group; });
+    renderInter();
+  });
+}
+
+function renderInter() {
+  var body = document.getElementById('interBody');
+  var flat = [];
+  interData.forEach(function(g) {
+    g.items.forEach(function(item) {
+      flat.push({ _id: item._id, group: g.group, name: item.name, cas: item.cas });
+    });
+  });
+  if (!flat.length) { body.innerHTML = '<tr><td colspan="5" class="empty-msg">No intermediates found.</td></tr>'; return; }
+  body.innerHTML = '';
+  flat.forEach(function(item, i) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + esc(item.group) + '</td><td>' + esc(item.name) + '</td><td>' + esc(item.cas) + '</td>' +
+      '<td class="actions"><button class="btn-edit" onclick="editInter(\'' + item._id + '\')">Edit</button>' +
+      '<button class="btn-delete" onclick="deleteInter(\'' + item._id + '\', \'' + esc(item.name) + '\')">Delete</button></td>';
+    body.appendChild(tr);
+  });
+}
+
+function openAddInter() {
+  openModal('Add Intermediate', [
+    { key: 'group', label: 'Group', placeholder: 'e.g. Ranitidine HCl Intermediates' },
+    { key: 'name', label: 'Intermediate Name', placeholder: 'Chemical name' },
+    { key: 'cas', label: 'CAS Number', placeholder: 'e.g. 66356-53-4' }
+  ], function() {
+    var group = getModalVal('group'), name = getModalVal('name'), cas = getModalVal('cas');
+    if (!group || !name) return showToast('Group and name are required', 'error');
+    fetch(API_BASE + '/intermediates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ group: group, name: name, cas: cas })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('Intermediate added', 'success'); loadInter();
+    });
+  });
+}
+
+function editInter(id) {
+  var item = null;
+  interData.forEach(function(g) {
+    g.items.forEach(function(it) { if (it._id === id) item = { _id: it._id, group: g.group, name: it.name, cas: it.cas }; });
+  });
+  if (!item) return;
+  openModal('Edit Intermediate', [
+    { key: 'group', label: 'Group', value: item.group },
+    { key: 'name', label: 'Intermediate Name', value: item.name },
+    { key: 'cas', label: 'CAS Number', value: item.cas }
+  ], function() {
+    var group = getModalVal('group'), name = getModalVal('name'), cas = getModalVal('cas');
+    if (!group || !name) return showToast('Group and name are required', 'error');
+    fetch(API_BASE + '/intermediates', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: id, group: group, name: name, cas: cas })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('Intermediate updated', 'success'); loadInter();
+    });
+  });
+}
+
+function deleteInter(id, name) {
+  if (!confirm('Delete "' + name + '"?')) return;
+  fetch(API_BASE + '/intermediates', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify({ id: id })
+  }).then(function() { showToast('Intermediate deleted', 'success'); loadInter(); });
+}
+
+// --- PELLETS ---
+var pelletsData = [];
+
+function loadPellets() {
+  fetch(API_BASE + '/pellets').then(function(r) { return r.json(); }).then(function(data) {
+    pelletsData = data;
+    renderPellets();
+  });
+}
+
+function renderPellets() {
+  var body = document.getElementById('pelletsBody');
+  if (!pelletsData.length) { body.innerHTML = '<tr><td colspan="4" class="empty-msg">No pellets found.</td></tr>'; return; }
+  body.innerHTML = '';
+  pelletsData.forEach(function(item, i) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + esc(item.product) + '</td><td>' + esc(item.percentage) + '</td>' +
+      '<td class="actions"><button class="btn-edit" onclick="editPellet(\'' + item._id + '\')">Edit</button>' +
+      '<button class="btn-delete" onclick="deletePellet(\'' + item._id + '\', \'' + esc(item.product) + '\')">Delete</button></td>';
+    body.appendChild(tr);
+  });
+}
+
+function openAddPellet() {
+  openModal('Add Pellet', [
+    { key: 'product', label: 'Product Name', placeholder: 'e.g. Omeprazole Pellets' },
+    { key: 'percentage', label: 'Percentage', placeholder: 'e.g. 10%, 15%, 20%' }
+  ], function() {
+    var product = getModalVal('product'), percentage = getModalVal('percentage');
+    if (!product) return showToast('Product is required', 'error');
+    fetch(API_BASE + '/pellets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ product: product, percentage: percentage })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('Pellet added', 'success'); loadPellets();
+    });
+  });
+}
+
+function editPellet(id) {
+  var item = pelletsData.find(function(p) { return p._id === id; });
+  openModal('Edit Pellet', [
+    { key: 'product', label: 'Product Name', value: item.product },
+    { key: 'percentage', label: 'Percentage', value: item.percentage }
+  ], function() {
+    var product = getModalVal('product'), percentage = getModalVal('percentage');
+    if (!product) return showToast('Product is required', 'error');
+    fetch(API_BASE + '/pellets', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ id: id, product: product, percentage: percentage })
+    }).then(function(r) { return r.json(); }).then(function() {
+      closeModal(); showToast('Pellet updated', 'success'); loadPellets();
+    });
+  });
+}
+
+function deletePellet(id, name) {
+  if (!confirm('Delete "' + name + '"?')) return;
+  fetch(API_BASE + '/pellets', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify({ id: id })
+  }).then(function() { showToast('Pellet deleted', 'success'); loadPellets(); });
+}
+
+// --- HELPERS ---
+function esc(s) {
+  if (!s) return '';
+  var d = document.createElement('div'); d.textContent = s; return d.innerHTML;
+}
+</script>
+</body>
+</html>

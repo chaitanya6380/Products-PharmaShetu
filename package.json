@@ -1,0 +1,14 @@
+{
+  "name": "pharmasethu-products",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed": "node api/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^17.2.4",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.0.0"
+  }
+}
