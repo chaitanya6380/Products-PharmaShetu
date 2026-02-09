@@ -203,22 +203,6 @@
       border: none;
     }
 
-    /* Mobile: single 2-col pellet table (stacked vertically) */
-    .pellet-mobile-wrap {
-      display: none;
-    }
-    .pellet-mobile-wrap .inter-table {
-      margin-bottom: 0;
-    }
-
-    @media (max-width: 768px) {
-      .pellet-desktop-wrap { display: none !important; }
-      .pellet-mobile-wrap { display: block !important; }
-    }
-    @media (min-width: 769px) {
-      .pellet-mobile-wrap { display: none !important; }
-    }
-
     @media (max-width: 1024px) {
       .pellet-table thead th,
       .pellet-table tbody td { font-size: 16px; padding: 0.5rem 0.75rem; }
@@ -308,35 +292,17 @@
     Pellets
   </div>
 
-  <!-- Pellets -->
+  <!-- Pellets - single table (Product / Strength) -->
   <div class="content">
-    <!-- Desktop: 4-column table -->
-    <div class="pellet-desktop-wrap">
-      <table class="pellet-table" id="pelletTable">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Strength</th>
-            <th class="divider"></th>
-            <th>Product</th>
-            <th>Strength</th>
-          </tr>
-        </thead>
-        <tbody id="pelletBody"></tbody>
-      </table>
-    </div>
-    <!-- Mobile: 2-column table (all items stacked) -->
-    <div class="pellet-mobile-wrap">
-      <table class="inter-table" id="pelletTableMobile">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Strength</th>
-          </tr>
-        </thead>
-        <tbody id="pelletBodyMobile"></tbody>
-      </table>
-    </div>
+    <table class="pellet-table" id="pelletTable">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Strength</th>
+        </tr>
+      </thead>
+      <tbody id="pelletBody"></tbody>
+    </table>
     <div class="cta-wrap">
       <a href="coming-soon.html" class="cta-btn">
         Download Product List
@@ -497,30 +463,15 @@
     // --- Render Pellets ---
     function renderPellets(pellets) {
       if (!pellets || !pellets.length) pellets = FALLBACK_PELLETS;
-      var halfIdx = Math.ceil(pellets.length / 2);
-      var leftHalf = pellets.slice(0, halfIdx), rightHalf = pellets.slice(halfIdx);
-      var maxRows = Math.max(leftHalf.length, rightHalf.length);
       var pelletBody = document.getElementById('pelletBody');
       pelletBody.innerHTML = '';
-      for (var i = 0; i < maxRows; i++) {
-        var tr = document.createElement('tr');
-        if (i % 2 === 1) tr.className = 'alt';
-        var left = leftHalf[i], right = rightHalf[i];
-        tr.innerHTML =
-          '<td>' + (left ? esc(left.product) : '') + '</td>' +
-          '<td>' + (left ? esc(left.percentage) : '') + '</td>' +
-          '<td class="divider"></td>' +
-          '<td>' + (right ? esc(right.product) : '') + '</td>' +
-          '<td>' + (right ? esc(right.percentage) : '') + '</td>';
-        pelletBody.appendChild(tr);
-      }
-      var pelletBodyMobile = document.getElementById('pelletBodyMobile');
-      pelletBodyMobile.innerHTML = '';
       pellets.forEach(function(item, i) {
         var tr = document.createElement('tr');
         if (i % 2 === 1) tr.className = 'alt';
-        tr.innerHTML = '<td>' + esc(item.product) + '</td><td>' + esc(item.percentage) + '</td>';
-        pelletBodyMobile.appendChild(tr);
+        tr.innerHTML =
+          '<td>' + esc(item.product) + '</td>' +
+          '<td>' + esc(item.percentage) + '</td>';
+        pelletBody.appendChild(tr);
       });
     }
 
