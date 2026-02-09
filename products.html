@@ -10,12 +10,15 @@
   <style>
     * { box-sizing: border-box; }
     body {
+      overflow-y: scroll;
+      scrollbar-width: none; /* Firefox */
       margin: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f5f5f5;
       color: #333;
       line-height: 1.5;
     }
+    body::-webkit-scrollbar { display: none; }
 
     /* Product grid section */
     .content {
