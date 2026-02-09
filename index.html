@@ -68,7 +68,11 @@
       justify-content: center;
       gap: 0.75rem;
     }
-    .section-banner-apis-icon,
+    .section-banner-apis img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
     .section-banner-inter-icon,
     .section-banner-pellets-icon {
       display: inline-flex;
@@ -80,7 +84,6 @@
       background: #ffffff;
       box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
     }
-    .section-banner-apis-icon img,
     .section-banner-inter-icon img,
     .section-banner-pellets-icon img {
       max-width: 80%;
@@ -167,6 +170,7 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid #ddd;
+      table-layout: fixed; /* ensure consistent column widths */
     }
     .pellet-table thead th {
       background: #0060AA;
@@ -177,6 +181,19 @@
       padding: 0.75rem 1.25rem;
       text-align: left;
       border: 1px solid #005090;
+    }
+    /* Pellets column width ratio: Product 30%, Strength 20% on each side */
+    .pellet-table thead th:nth-child(1),
+    .pellet-table tbody td:nth-child(1),
+    .pellet-table thead th:nth-child(3),
+    .pellet-table tbody td:nth-child(3) {
+      width: 30%;
+    }
+    .pellet-table thead th:nth-child(2),
+    .pellet-table tbody td:nth-child(2),
+    .pellet-table thead th:nth-child(4),
+    .pellet-table tbody td:nth-child(4) {
+      width: 20%;
     }
     .pellet-table tbody td {
       padding: 0.6rem 1.25rem;
@@ -240,10 +257,8 @@
 <body>
   <!-- APIs banner -->
   <div class="section-banner section-banner-apis">
-    <span class="section-banner-apis-icon">
-      <img src="Public/1.png" alt="API Icon">
-    </span>
-    APIs
+    <img src="Public/2.png" alt="APIs Icon">
+    <span>APIs</span>
   </div>
 
   <!-- Product list - 3 columns, flowing down columns -->
@@ -259,10 +274,8 @@
 
   <!-- Intermediates banner -->
   <div class="section-banner section-banner-inter">
-    <span class="section-banner-inter-icon">
-      <img src="Public/2.png" alt="Intermediates Icon">
-    </span>
-    API Intermediates
+    <img src="Public/4.png" alt="Intermediates Icon" style="height:52px; width:auto;">
+    <span>API Intermediates</span>
   </div>
 
   <!-- Intermediates table - grouped by parent drug -->
@@ -286,10 +299,8 @@
 
   <!-- Pellets banner -->
   <div class="section-banner section-banner-pellets">
-    <span class="section-banner-pellets-icon">
-      <img src="Public/3.png" alt="Pellets Icon">
-    </span>
-    Pellets
+    <img src="Public/6.png" alt="Pellets Icon" style="height:52px; width:auto;">
+    <span>Pellets</span>
   </div>
 
   <!-- Pellets - 4-column table (Product / Strength | Product / Strength) -->
