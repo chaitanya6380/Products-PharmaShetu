@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PharmaSethu – Products</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       overflow-y: scroll;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
+      /* Firefox */
       margin: 0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f5f5f5;
       color: #333;
       line-height: 1.5;
     }
-    body::-webkit-scrollbar { display: none; }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
 
     /* Product grid section */
     .content {
       padding: 40px 60px 55px 60px;
     }
+
     .api-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -42,6 +53,7 @@
       background: #fff;
       border: 1px solid #ddd;
     }
+
     .api-pill.tinted {
       background: #e0ecf5;
       border-color: #c8d8e8;
@@ -60,6 +72,7 @@
       border-radius: 10px;
       margin: 2.5rem 60px 0 60px;
     }
+
     .section-banner-apis,
     .section-banner-inter,
     .section-banner-pellets {
@@ -68,11 +81,13 @@
       justify-content: center;
       gap: 0.75rem;
     }
+
     .section-banner-apis img {
       height: 52px;
       width: auto;
       display: block;
     }
+
     .section-banner-inter-icon,
     .section-banner-pellets-icon {
       display: inline-flex;
@@ -82,8 +97,9 @@
       height: 56px;
       border-radius: 999px;
       background: #ffffff;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
     }
+
     .section-banner-inter-icon img,
     .section-banner-pellets-icon img {
       max-width: 80%;
@@ -100,6 +116,7 @@
       overflow: hidden;
       border: 1px solid #ddd;
     }
+
     .inter-table thead th {
       background: #0060AA;
       color: #fff;
@@ -110,6 +127,7 @@
       text-align: left;
       border: 1px solid #005090;
     }
+
     .inter-table .group-row td {
       background: #e0ecf5;
       font-weight: 700;
@@ -118,6 +136,7 @@
       padding: 0.65rem 1.25rem;
       border: 1px solid #c8d8e8;
     }
+
     .inter-table tbody td {
       padding: 0.6rem 1.25rem;
       font-family: 'Inter', sans-serif;
@@ -125,9 +144,11 @@
       color: #1a1a1a;
       border: 1px solid #e0e0e0;
     }
+
     .inter-table tbody tr:hover {
       background: #f0f6fc;
     }
+
     .inter-table tbody tr.alt td {
       background: #f9fbfd;
     }
@@ -137,6 +158,7 @@
       text-align: center;
       padding: 2.5rem 0 0 0;
     }
+
     .cta-btn {
       display: inline-flex;
       align-items: center;
@@ -153,16 +175,18 @@
       text-decoration: none;
       transition: background 0.2s;
     }
+
     .cta-btn:hover {
       background: #004d8a;
     }
+
     .cta-btn svg {
       width: clamp(16px, 1.2vw + 10px, 20px);
       height: clamp(16px, 1.2vw + 10px, 20px);
       flex-shrink: 0;
     }
 
-    /* Pellets - single 4-column table for perfect row alignment */
+    /* Pellets - clean 2-column table: Product | Strength */
     .pellet-table {
       width: 100%;
       border-collapse: collapse;
@@ -170,8 +194,9 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid #ddd;
-      table-layout: fixed; /* ensure consistent column widths */
+      table-layout: fixed;
     }
+
     .pellet-table thead th {
       background: #0060AA;
       color: #fff;
@@ -182,19 +207,18 @@
       text-align: left;
       border: 1px solid #005090;
     }
-    /* Pellets column width ratio: Product 30%, Strength 20% on each side */
+
+    /* Pellets column width ratio (base for mobile: Product 65%, Strength 35%) */
     .pellet-table thead th:nth-child(1),
-    .pellet-table tbody td:nth-child(1),
-    .pellet-table thead th:nth-child(3),
-    .pellet-table tbody td:nth-child(3) {
-      width: 30%;
+    .pellet-table tbody td:nth-child(1) {
+      width: 65%;
     }
+
     .pellet-table thead th:nth-child(2),
-    .pellet-table tbody td:nth-child(2),
-    .pellet-table thead th:nth-child(4),
-    .pellet-table tbody td:nth-child(4) {
-      width: 20%;
+    .pellet-table tbody td:nth-child(2) {
+      width: 35%;
     }
+
     .pellet-table tbody td {
       padding: 0.6rem 1.25rem;
       font-family: 'Inter', sans-serif;
@@ -203,57 +227,131 @@
       border: 1px solid #e0e0e0;
       vertical-align: top;
     }
-    .pellet-table tbody tr:hover {
-      background: #ffffff; /* keep all rows white on hover */
+
+    .pellet-table tbody tr:hover td {
+      background: #f0f6fc;
     }
+
     .pellet-table tbody tr.alt td {
-      background: #ffffff; /* no alternate row color for pellets */
+      background: #f9fbfd;
     }
-    .pellet-table .divider {
-      width: 28px;
-      background: #f5f5f5;
-      border: none;
-      padding: 0;
-    }
-    .pellet-table thead .divider {
-      background: #f5f5f5;
-      border: none;
+
+    /* Desktop-only: 4-column layout (Product | Strength | Product | Strength) */
+    @media (min-width: 1025px) {
+      .pellet-table thead th:nth-child(1),
+      .pellet-table tbody td:nth-child(1),
+      .pellet-table thead th:nth-child(3),
+      .pellet-table tbody td:nth-child(3) {
+        width: 30%;
+      }
+
+      .pellet-table thead th:nth-child(2),
+      .pellet-table tbody td:nth-child(2),
+      .pellet-table thead th:nth-child(4),
+      .pellet-table tbody td:nth-child(4) {
+        width: 20%;
+      }
     }
 
     @media (max-width: 1024px) {
       .pellet-table thead th,
-      .pellet-table tbody td { font-size: 16px; padding: 0.5rem 0.75rem; }
+      .pellet-table tbody td {
+        font-size: 16px;
+        padding: 0.5rem 0.9rem;
+      }
     }
+
     @media (max-width: 768px) {
-      .api-grid { grid-template-columns: 1fr 1fr; }
-      .content { padding: 30px 20px; }
-      .section-banner { margin-left: 1rem; margin-right: 1rem; }
+      .api-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .content {
+        padding: 30px 20px;
+      }
+
+      .section-banner {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+
       .inter-table thead th,
       .inter-table tbody td,
-      .inter-table .group-row td { font-size: 16px; }
-      .api-pill { font-size: 16px; }
-      .cta-btn { font-size: 16px; }
+      .inter-table .group-row td {
+        font-size: 16px;
+      }
+
+      .api-pill {
+        font-size: 16px;
+      }
+
+      .cta-btn {
+        font-size: 16px;
+      }
+
       .pellet-table thead th,
-      .pellet-table tbody td { font-size: 14px; padding: 0.4rem 0.5rem; }
-      .pellet-table .divider { width: 12px; }
+      .pellet-table tbody td {
+        font-size: 14px;
+        padding: 0.5rem 0.75rem;
+      }
     }
+
     @media (max-width: 500px) {
-      .api-grid { grid-template-columns: 1fr; }
-      .content { padding: 20px 16px; }
-      .section-banner { margin-left: 0.5rem; margin-right: 0.5rem; }
-      .section-banner { font-size: 24px; }
+      .api-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 20px 16px;
+      }
+
+      .section-banner {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+      .section-banner {
+        font-size: 24px;
+      }
+
       .inter-table thead th,
       .inter-table tbody td,
-      .inter-table .group-row td { font-size: 14px; padding: 0.5rem 0.75rem; }
-      .api-pill { font-size: 14px; padding: 0.5rem 1rem; }
-      .cta-btn { font-size: 14px; padding: 0.6rem 1.25rem; }
-      .cta-btn svg { width: 16px; height: 16px; }
+      .inter-table .group-row td {
+        font-size: 14px;
+        padding: 0.5rem 0.75rem;
+      }
+
+      /* Keep CAS No. values on a single line on mobile and slightly smaller */
+      .inter-table thead th:nth-child(2),
+      .inter-table tbody td:nth-child(2) {
+        white-space: nowrap;
+        font-size: 12px;
+      }
+
+      .api-pill {
+        font-size: 14px;
+        padding: 0.5rem 1rem;
+      }
+
+      .cta-btn {
+        font-size: 14px;
+        padding: 0.6rem 1.25rem;
+      }
+
+      .cta-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
       .pellet-table thead th,
-      .pellet-table tbody td { font-size: 12px; padding: 0.35rem 0.4rem; }
-      .pellet-table .divider { width: 8px; }
+      .pellet-table tbody td {
+        font-size: 12px;
+        padding: 0.45rem 0.6rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <!-- APIs banner -->
   <div class="section-banner section-banner-apis">
@@ -267,7 +365,12 @@
     <div class="cta-wrap">
       <a href="coming-soon.html" target="_blank" rel="noopener noreferrer" class="cta-btn">
         Download Product List
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
       </a>
     </div>
   </div>
@@ -292,7 +395,12 @@
     <div class="cta-wrap">
       <a href="coming-soon.html" target="_blank" rel="noopener noreferrer" class="cta-btn">
         Download Product List
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
       </a>
     </div>
   </div>
@@ -303,13 +411,11 @@
     <span>Pellets</span>
   </div>
 
-  <!-- Pellets - 4-column table (Product / Strength | Product / Strength) -->
+  <!-- Pellets - simple 2-column table (Product | Strength) -->
   <div class="content">
     <table class="pellet-table" id="pelletTable">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Strength</th>
           <th>Product</th>
           <th>Strength</th>
         </tr>
@@ -319,7 +425,12 @@
     <div class="cta-wrap">
       <a href="coming-soon.html" target="_blank" rel="noopener noreferrer" class="cta-btn">
         Download Product List
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
       </a>
     </div>
   </div>
@@ -349,33 +460,43 @@
     ];
 
     var FALLBACK_INTERMEDIATES = [
-      { group: "Ranitidine HCl Intermediates", items: [
-        { name: "2-[[[5-(Dimethylamino) methyl-1,2-furanyl] methyl] thio] ethanamine", cas: "66356-53-4" },
-        { name: "2-((5-((Dimethylamino)methyl)furan-2-yl)methylthio)ethanamine", cas: "66356-53-4" },
-        { name: "N-Methyl-1-(methylthio)-2-nitroethenamine", cas: "61832-41-5" },
-        { name: "N-[2-[[[5-(Dimethylamino) methyl] furan-2-yl] methyl] thio] ethyl]-N-methyl-2-nitroethene-1,1-diamine", cas: "66357-35-5" }
-      ]},
-      { group: "Famotidine Intermediates", items: [
-        { name: "2-[4-(Chloromethyl) thiazol-2-yl] guanidine hydrochloride", cas: "69014-12-6" },
-        { name: "N-[4-[[(Amino iminomethyl) thio]-methyl]-2-thiazolyl]-guanidine dihydrochloride", cas: "88046-01-9" },
-        { name: "Sulfuric diamide", cas: "7803-58-9" },
-        { name: "N-Sulfamyl-3-chloro propionamidine HCl", cas: "106649-95-0" },
-        { name: "Aminoiminoethyl thiourea", cas: "2114-02-05" }
-      ]},
-      { group: "Mirtazapine Intermediates", items: [
-        { name: "Isopropyl 2-chloronicotinate", cas: "NA" },
-        { name: "(2-(4-Methyl-2-phenylpiperazin-1-yl)pyridin-3-yl)methanol", cas: "61337-89-1" },
-        { name: "1-Methyl-3-phenylpiperazine", cas: "5271-27-2" }
-      ]},
-      { group: "Rizatriptan Intermediates", items: [
-        { name: "1-(4-Nitrophenyl)methyl-1,2,4-triazole", cas: "119192-09-5" },
-        { name: "4-(1H-1,2,4-Triazol-1-ylmethyl)aniline", cas: "119192-10-8" }
-      ]},
-      { group: "Eletriptan HBr Intermediates", items: [
-        { name: "(3-[(R)-1-(Benzyloxy) carbonyl pyrrolidine-2-carbonyl)-5-bromoindole", cas: "143322-56-9" },
-        { name: "5-Bromo-3-(((R)-1-methylpyrrolidin-2-yl) methyl)-1H-indole", cas: "143322-57-0" },
-        { name: "Phenyl vinyl sulfone", cas: "5535-48-8" }
-      ]}
+      {
+        group: "Ranitidine HCl Intermediates", items: [
+          { name: "2-[[[5-(Dimethylamino) methyl-1,2-furanyl] methyl] thio] ethanamine", cas: "66356-53-4" },
+          { name: "2-((5-((Dimethylamino)methyl)furan-2-yl)methylthio)ethanamine", cas: "66356-53-4" },
+          { name: "N-Methyl-1-(methylthio)-2-nitroethenamine", cas: "61832-41-5" },
+          { name: "N-[2-[[[5-(Dimethylamino) methyl] furan-2-yl] methyl] thio] ethyl]-N-methyl-2-nitroethene-1,1-diamine", cas: "66357-35-5" }
+        ]
+      },
+      {
+        group: "Famotidine Intermediates", items: [
+          { name: "2-[4-(Chloromethyl) thiazol-2-yl] guanidine hydrochloride", cas: "69014-12-6" },
+          { name: "N-[4-[[(Amino iminomethyl) thio]-methyl]-2-thiazolyl]-guanidine dihydrochloride", cas: "88046-01-9" },
+          { name: "Sulfuric diamide", cas: "7803-58-9" },
+          { name: "N-Sulfamyl-3-chloro propionamidine HCl", cas: "106649-95-0" },
+          { name: "Aminoiminoethyl thiourea", cas: "2114-02-05" }
+        ]
+      },
+      {
+        group: "Mirtazapine Intermediates", items: [
+          { name: "Isopropyl 2-chloronicotinate", cas: "NA" },
+          { name: "(2-(4-Methyl-2-phenylpiperazin-1-yl)pyridin-3-yl)methanol", cas: "61337-89-1" },
+          { name: "1-Methyl-3-phenylpiperazine", cas: "5271-27-2" }
+        ]
+      },
+      {
+        group: "Rizatriptan Intermediates", items: [
+          { name: "1-(4-Nitrophenyl)methyl-1,2,4-triazole", cas: "119192-09-5" },
+          { name: "4-(1H-1,2,4-Triazol-1-ylmethyl)aniline", cas: "119192-10-8" }
+        ]
+      },
+      {
+        group: "Eletriptan HBr Intermediates", items: [
+          { name: "(3-[(R)-1-(Benzyloxy) carbonyl pyrrolidine-2-carbonyl)-5-bromoindole", cas: "143322-56-9" },
+          { name: "5-Bromo-3-(((R)-1-methylpyrrolidin-2-yl) methyl)-1H-indole", cas: "143322-57-0" },
+          { name: "Phenyl vinyl sulfone", cas: "5535-48-8" }
+        ]
+      }
     ];
 
     var FALLBACK_PELLETS = [
@@ -431,20 +552,31 @@
     // --- Render APIs ---
     function renderApis(products) {
       if (!products || !products.length) products = FALLBACK_APIS;
-      if (typeof products[0] === 'object') products = products.map(function(a) { return a.name; });
-      var cols = 3, perCol = Math.ceil(products.length / cols);
-      var col1 = products.slice(0, perCol), col2 = products.slice(perCol, perCol * 2), col3 = products.slice(perCol * 2);
+      if (typeof products[0] === 'object') products = products.map(function (a) { return a.name; });
+
+      var cols = 3;
+      var perCol = Math.ceil(products.length / cols);
+      var col1 = products.slice(0, perCol),
+          col2 = products.slice(perCol, perCol * 2),
+          col3 = products.slice(perCol * 2);
       var maxRows = Math.max(col1.length, col2.length, col3.length);
+
       var grid = document.getElementById('apiGrid');
       grid.innerHTML = '';
+
+      // Use a running index so colours truly alternate
+      // in DOM order (works for 3, 2, or 1 columns).
+      var visibleIndex = 0;
+
       for (var r = 0; r < maxRows; r++) {
         var items = [col1[r], col2[r], col3[r]];
-        var tinted = (r % 2 === 0);
-        for (var c = 0; c < 3; c++) {
+        for (var c = 0; c < cols; c++) {
           var pill = document.createElement('div');
           if (items[c]) {
+            var tinted = (visibleIndex % 2 === 0);
             pill.className = 'api-pill' + (tinted ? ' tinted' : '');
             pill.textContent = items[c];
+            visibleIndex++;
           } else {
             pill.style.visibility = 'hidden';
             pill.className = 'api-pill';
@@ -459,12 +591,12 @@
       if (!data || !data.length) data = FALLBACK_INTERMEDIATES;
       var tbody = document.getElementById('interBody');
       tbody.innerHTML = '';
-      data.forEach(function(group) {
+      data.forEach(function (group) {
         var groupRow = document.createElement('tr');
         groupRow.className = 'group-row';
         groupRow.innerHTML = '<td colspan="2">' + esc(group.group) + '</td>';
         tbody.appendChild(groupRow);
-        group.items.forEach(function(item, i) {
+        group.items.forEach(function (item, i) {
           var tr = document.createElement('tr');
           if (i % 2 === 1) tr.className = 'alt';
           tr.innerHTML = '<td>' + esc(item.name) + '</td><td>' + esc(item.cas) + '</td>';
@@ -473,39 +605,86 @@
       });
     }
 
+    // Keep latest pellets data so we can re-render on resize
+    var CURRENT_PELLETS = null;
+
     // --- Render Pellets ---
     function renderPellets(pellets) {
-      if (!pellets || !pellets.length) pellets = FALLBACK_PELLETS;
+      if (Array.isArray(pellets) && pellets.length) {
+        CURRENT_PELLETS = pellets;
+      }
+      if (!Array.isArray(CURRENT_PELLETS) || !CURRENT_PELLETS.length) {
+        CURRENT_PELLETS = FALLBACK_PELLETS;
+      }
+
+      var pelletTable = document.getElementById('pelletTable');
+      var pelletHead = pelletTable ? pelletTable.querySelector('thead') : null;
       var pelletBody = document.getElementById('pelletBody');
+      if (!pelletTable || !pelletHead || !pelletBody) return;
+
+      pelletHead.innerHTML = '';
       pelletBody.innerHTML = '';
 
-      var half = Math.ceil(pellets.length / 2);
-      for (var i = 0; i < half; i++) {
-        var left = pellets[i];
-        var right = pellets[i + half];
-        var tr = document.createElement('tr');
-        if (i % 2 === 1) tr.className = 'alt';
-        tr.innerHTML =
-          '<td>' + (left ? esc(left.product) : '') + '</td>' +
-          '<td>' + (left ? esc(left.percentage) : '') + '</td>' +
-          '<td>' + (right ? esc(right.product) : '') + '</td>' +
-          '<td>' + (right ? esc(right.percentage) : '') + '</td>';
-        pelletBody.appendChild(tr);
+      var isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        // MOBILE/TABLET: simple 2-column table (Product | Strength)
+        var headRowM = document.createElement('tr');
+        headRowM.innerHTML = '<th>Product</th><th>Strength</th>';
+        pelletHead.appendChild(headRowM);
+
+        CURRENT_PELLETS.forEach(function (item, i) {
+          var trM = document.createElement('tr');
+          if (i % 2 === 1) trM.className = 'alt';
+          trM.innerHTML =
+            '<td>' + esc(item.product) + '</td>' +
+            '<td>' + esc(item.percentage) + '</td>';
+          pelletBody.appendChild(trM);
+        });
+      } else {
+        // DESKTOP: 4-column table (Product | Strength | Product | Strength)
+        var headRowD = document.createElement('tr');
+        headRowD.innerHTML = '<th>Product</th><th>Strength</th><th>Product</th><th>Strength</th>';
+        pelletHead.appendChild(headRowD);
+
+        var half = Math.ceil(CURRENT_PELLETS.length / 2);
+        for (var i = 0; i < half; i++) {
+          var left = CURRENT_PELLETS[i];
+          var right = CURRENT_PELLETS[i + half];
+          var trD = document.createElement('tr');
+          if (i % 2 === 1) trD.className = 'alt';
+          trD.innerHTML =
+            '<td>' + (left ? esc(left.product) : '') + '</td>' +
+            '<td>' + (left ? esc(left.percentage) : '') + '</td>' +
+            '<td>' + (right ? esc(right.product) : '') + '</td>' +
+            '<td>' + (right ? esc(right.percentage) : '') + '</td>';
+          pelletBody.appendChild(trD);
+        }
       }
     }
 
+    // Re-render pellets on resize so desktop/mobile layouts stay in sync
+    var pelletResizeTimeout;
+    window.addEventListener('resize', function () {
+      clearTimeout(pelletResizeTimeout);
+      pelletResizeTimeout = setTimeout(function () {
+        renderPellets(); // uses CURRENT_PELLETS / fallback
+      }, 200);
+    });
+
     // --- Load from API with fallback ---
-    fetch(API_BASE + '/apis').then(function(r) { return r.json(); }).then(function(data) {
+    fetch(API_BASE + '/apis').then(function (r) { return r.json(); }).then(function (data) {
       renderApis(Array.isArray(data) && data.length ? data : null);
-    }).catch(function() { renderApis(null); });
+    }).catch(function () { renderApis(null); });
 
-    fetch(API_BASE + '/intermediates').then(function(r) { return r.json(); }).then(function(data) {
+    fetch(API_BASE + '/intermediates').then(function (r) { return r.json(); }).then(function (data) {
       renderIntermediates(Array.isArray(data) && data.length ? data : null);
-    }).catch(function() { renderIntermediates(null); });
+    }).catch(function () { renderIntermediates(null); });
 
-    fetch(API_BASE + '/pellets').then(function(r) { return r.json(); }).then(function(data) {
+    fetch(API_BASE + '/pellets').then(function (r) { return r.json(); }).then(function (data) {
       renderPellets(Array.isArray(data) && data.length ? data : null);
-    }).catch(function() { renderPellets(null); });
+    }).catch(function () { renderPellets(null); });
   </script>
 </body>
+
 </html>
